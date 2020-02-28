@@ -1,0 +1,97 @@
+.showcase {
+  background: url(/img/landing.jpg);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  margin-top: 3%;
+}
+
+.user-pic {
+  padding-left: 38% !important;
+}
+
+.nav-btn {
+  border-radius: 30px !important;
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+  margin-bottom: 15px !important;
+}
+.pinned-nav {
+  z-index: 20;
+  position: fixed !important;
+  top: 0;
+  background: url(/img/landing.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.background {
+  background: url(/img/landing.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.pane-btn {
+  margin-right: 10px;
+}
+
+.scroll-icon {
+  position: absolute;
+  bottom: 5%;
+  left: 47%;
+  opacity: 0.5;
+}
+
+.dashboard {
+  margin-top: 70px;
+}
+.portal-component {
+  margin-top: 60px;
+}
+.common {
+  background-color: #403174 !important;
+}
+
+@media only screen and (max-width: 950px) {
+  .nav-btn {
+    border-radius: 15px !important;
+
+    margin-bottom: 15px !important;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .form {
+    padding: 10% 10% 10% 10%;
+  }
+  .portal-component {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .nav-btn {
+    border-radius: 30px !important;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}

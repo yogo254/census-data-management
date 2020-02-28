@@ -1,0 +1,2 @@
+export const ADD_EDUCATION = "ADD_EDUCATION";
+export const REMOVE_EDUCATION = "REMOVE_EDUCATION";
