@@ -2,15 +2,27 @@ import React from "react";
 import { connect } from "react-redux";
 import { addWork, removeWork } from "../../actions/Work";
 import { previous } from "../../actions/StackPanel";
+import { addNewPerson } from "../../actions/Person";
 import uuid from "uuid/v4";
+import { useHistory } from "react-router-dom";
 
-const Work = ({ work, addWork, removeWork, previous, education, person }) => {
+const Work = ({
+  work,
+  addWork,
+  removeWork,
+  previous,
+  education,
+  person,
+  addNewPerson
+}) => {
+  let history = useHistory();
   const finish = e => {
     person.educations = education.filter(edu => edu.id !== "");
     person.works = work.filter(w => w.id !== "");
     person.spauces = person.spauces.split(",");
 
-    console.log(person);
+    addNewPerson(person);
+    history.push("/portal");
   };
   return (
     <div className="row">
@@ -80,7 +92,7 @@ const Work = ({ work, addWork, removeWork, previous, education, person }) => {
                   <p className="left">Start Date:</p>
                   <input
                     className="black-text datepicker "
-                    type="text"
+                    type="date"
                     required
                     id="start"
                     name="start"
@@ -91,7 +103,7 @@ const Work = ({ work, addWork, removeWork, previous, education, person }) => {
                   <p className="left">End Date:</p>
                   <input
                     className="black-text datepicker"
-                    type="text"
+                    type="date"
                     name="end"
                     required
                     id="end"
@@ -145,6 +157,9 @@ const mapStateToProps = state => ({
   person: state.person
 });
 
-export default connect(mapStateToProps, { addWork, removeWork, previous })(
-  Work
-);
+export default connect(mapStateToProps, {
+  addWork,
+  removeWork,
+  previous,
+  addNewPerson
+})(Work);

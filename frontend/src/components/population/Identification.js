@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { next } from "../../actions/StackPanel";
-import { personUpdate } from "../../actions/Person";
+import { personUpdate, clearPerson } from "../../actions/Person";
+import { Link } from "react-router-dom";
 
-const Identification = ({ next, personUpdate, person }) => {
+const Identification = ({ next, personUpdate, person, clearPerson }) => {
   const submit = e => {
     e.preventDefault();
 
@@ -24,7 +25,9 @@ const Identification = ({ next, personUpdate, person }) => {
     <div className="row">
       <div className="col s10 offset-s1 m8 offset-m2 card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
         <h5 className=" blue-text">Add Identification Details</h5>
-
+        <Link onClick={() => clearPerson()} className="right">
+          clear
+        </Link>
         <form className="form" onSubmit={e => submit(e)}>
           <div className="row">
             <div className="input-field">
@@ -114,4 +117,6 @@ const mapStateToProps = state => ({
   person: state.person
 });
 
-export default connect(mapStateToProps, { next, personUpdate })(Identification);
+export default connect(mapStateToProps, { next, personUpdate, clearPerson })(
+  Identification
+);

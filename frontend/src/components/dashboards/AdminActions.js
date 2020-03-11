@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAllPersons } from "../../actions/Persons";
 
-const AdminActions = () => {
+const AdminActions = ({ getAllPersons }) => {
   return (
     <div className="portal-component">
       <h5>Actions</h5>
@@ -62,7 +64,11 @@ const AdminActions = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/population/view" className="blue-text">
+                  <Link
+                    to="/population/view"
+                    onClick={() => getAllPersons()}
+                    className="blue-text"
+                  >
                     View Data
                   </Link>
                 </li>
@@ -93,4 +99,4 @@ const AdminActions = () => {
   );
 };
 
-export default AdminActions;
+export default connect(null, { getAllPersons })(AdminActions);

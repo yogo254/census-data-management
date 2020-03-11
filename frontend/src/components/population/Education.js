@@ -80,7 +80,7 @@ const Education = ({
                   <p className="left">Start Date:</p>
                   <input
                     className="black-text datepicker "
-                    type="text"
+                    type="date"
                     required
                     id="start"
                     name="start"
@@ -91,7 +91,7 @@ const Education = ({
                   <p className="left">End Date:</p>
                   <input
                     className="black-text datepicker"
-                    type="text"
+                    type="date"
                     name="end"
                     required
                     id="end"

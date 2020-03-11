@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const ViewPopulation = () => {
+const ViewPopulation = ({ persons }) => {
   return (
     <div className="portal-component">
       <table className="responsive-table striped highlight">
@@ -29,10 +30,27 @@ const ViewPopulation = () => {
             </th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {persons.map(p => {
+            return (
+              <tr>
+                <td>{p.id}</td>
+                <td>{p.firstname}</td>
+                <td>{p.surname}</td>
+                <td>{p.lastname}</td>
+                <td>{p.gender}</td>
+                <td>{p.placeOfBirth}</td>
+                <td>{p.county}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
 };
+const mapStateToProps = state => ({
+  persons: state.persons.content
+});
 
-export default ViewPopulation;
+export default connect(mapStateToProps)(ViewPopulation);

@@ -93,9 +93,10 @@ const PersonalDetails = ({ next, previous, personUpdate, person }) => {
             <div className="input-field">
               <p className="left blue-text">Date of Birth:</p>
               <input
-                className="black-text"
-                type="text"
+                className="black-text datepicker"
+                type="date"
                 id="dob"
+                format="dd-mm-yyyy"
                 name="dob"
                 defaultValue={person.dob}
                 placeholder="dd-mm-yyyy"
@@ -160,8 +161,8 @@ const PersonalDetails = ({ next, previous, personUpdate, person }) => {
             </div>
 
             <div clas="input-field ">
-              <p className="left blue-text">Sex:</p>
-              <Select s={12} name="sex" defaultValue={person.sex}>
+              <p className="left blue-text">Gender:</p>
+              <Select s={12} name="gender" defaultValue={person.gender}>
                 <option value="male">Male</option>
 
                 <option value="female">Female</option>

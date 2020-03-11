@@ -1,4 +1,4 @@
-import { PERSON_UPDATE } from "../actions/types";
+import { PERSON_UPDATE, PERSON_CLEAR } from "../actions/types";
 const initialState = {};
 
 export default (state = initialState, action) => {
@@ -6,6 +6,8 @@ export default (state = initialState, action) => {
   switch (type) {
     case PERSON_UPDATE:
       return { ...state, ...payload };
+    case PERSON_CLEAR:
+      return {};
 
     default:
       return state;
