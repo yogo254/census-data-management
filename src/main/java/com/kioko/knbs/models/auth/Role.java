@@ -38,6 +38,15 @@ public class Role {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+
+    }
+
+    public Role() {
+    }
+
+    public Role(String name, List<Permission> permissions) {
+        this.name = name;
+        this.permissions = permissions;
     }
 
 }

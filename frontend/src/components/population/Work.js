@@ -1,22 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addWork, removeWork } from "../../actions/Work";
+import { previous } from "../../actions/StackPanel";
 import uuid from "uuid/v4";
 
-import { addEducation, removeEducation } from "../../actions/Education";
-import { next, previous } from "../../actions/StackPanel";
+const Work = ({ work, addWork, removeWork, previous, education, person }) => {
+  const finish = e => {
+    person.educations = education.filter(edu => edu.id !== "");
+    person.works = work.filter(w => w.id !== "");
+    person.spauces = person.spauces.split(",");
 
-const Education = ({
-  education,
-  addEducation,
-  removeEducation,
-  next,
-  previous
-}) => {
+    console.log(person);
+  };
   return (
     <div className="row">
       <div className="col s10 offset-s1 m8 offset-m2 card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
-        <h5 className=" blue-text">Add Education Details</h5>
-        {education.map(e => {
+        <h5 className=" blue-text">Add Work Details</h5>
+        {work.map(e => {
           return (
             <form
               key={uuid()}
@@ -36,7 +36,7 @@ const Education = ({
                   obj[`${name}`] = value;
                 });
 
-                addEducation(obj);
+                addWork(obj);
               }}
             >
               {e.id === "" ? (
@@ -44,25 +44,25 @@ const Education = ({
               ) : null}
               <div className="row">
                 <div className="input-field">
-                  <p className="left">Institution:</p>
+                  <p className="left">Company:</p>
                   <input
                     className="black-text"
                     type="text"
                     required
-                    id="institution"
-                    name="institution"
-                    defaultValue={e.institution}
+                    id="company"
+                    name="company"
+                    defaultValue={e.company}
                   />
                 </div>
                 <div className="input-field">
-                  <p className="left">Certification:</p>
+                  <p className="left">Position:</p>
                   <input
                     className="black-text"
                     type="text"
                     required
-                    id="certification"
-                    name="certification"
-                    defaultValue={e.certification}
+                    id="position"
+                    name="position"
+                    defaultValue={e.position}
                   />
                 </div>
                 <div className="input-field">
@@ -108,7 +108,7 @@ const Education = ({
                   </button>
                   {e.id !== "" ? (
                     <button
-                      onClick={c => removeEducation(e.id)}
+                      onClick={c => removeWork(e.id)}
                       className="btn white  purple-text border-purple waves-effect waves-light nav-btn left"
                     >
                       Remove
@@ -122,30 +122,29 @@ const Education = ({
 
         <div>
           <button
-            onClick={() => next()}
-            className="btn common white-text waves-effect waves-light nav-btn right"
-          >
-            Next
-          </button>
-          <button
             onClick={() => previous()}
-            type="submit"
             className="btn common white-text waves-effect waves-light nav-btn left"
           >
             Previous
+          </button>
+          <button
+            onClick={e => finish(e)}
+            className="btn common white-text waves-effect waves-light nav-btn right"
+          >
+            Finish
           </button>
         </div>
       </div>
     </div>
   );
 };
+
 const mapStateToProps = state => ({
-  education: state.education
+  work: state.work,
+  education: state.education,
+  person: state.person
 });
 
-export default connect(mapStateToProps, {
-  addEducation,
-  removeEducation,
-  next,
-  previous
-})(Education);
+export default connect(mapStateToProps, { addWork, removeWork, previous })(
+  Work
+);

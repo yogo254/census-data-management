@@ -2,6 +2,7 @@ package com.kioko.knbs.controler;
 
 import java.util.List;
 
+import com.kioko.knbs.controler.exception.InvalidRequestException;
 import com.kioko.knbs.repos.PersonRepo;
 import com.kioko.knbs.util.GenericMessage;
 
@@ -12,51 +13,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Mono;
+
 /**
  * PersonSpauseControler
  */
 @RestController
-@RequestMapping("/spauce")
+@RequestMapping("api/person/spauce")
 public class PersonSpauseControler {
 
     @Autowired
     private PersonRepo personRepo;
 
     @PostMapping("/add/{id}")
-    public GenericMessage addSpauce(@PathVariable("id") String id, @RequestBody String spause) {
+    public Mono<GenericMessage> addSpauce(@PathVariable("id") String id, @RequestBody String spause) {
 
-        if (personRepo.existsById(id).block()) {
-            personRepo.findById(id)
-
-                    .subscribe(p -> {
-                        p.getSpauces().add(spause);
-                        personRepo.save(p).subscribe();
-
-                    });
-            return new GenericMessage(1, "spause added successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+        return personRepo.findById(id).map(person -> {
+            if (person != null) {
+                person.getSpauces().add(spause);
+                personRepo.save(person).subscribe();
+                return new GenericMessage(1, "spause added successfully");
+            } else
+                throw new InvalidRequestException("invalid request");
+        });
 
     }
 
     @PostMapping("/update/{id}")
-    public GenericMessage updateSpause(@PathVariable("id") String id, @RequestBody List<String> spauces) {
+    public Mono<GenericMessage> updateSpause(@PathVariable("id") String id, @RequestBody List<String> spauces) {
 
-        if (personRepo.existsById(id).block()) {
-            personRepo.findById(id)
+        return personRepo.findById(id).map(person -> {
+            if (person != null) {
+                person.setSpauces(spauces);
 
-                    .subscribe(p -> {
-                        p.setSpauces(spauces);
-                        ;
-                        personRepo.save(p).subscribe();
+                personRepo.save(person).subscribe();
+                return new GenericMessage(1, " spauces updated successfully");
+            } else
+                throw new InvalidRequestException("invalid request");
 
-                    });
-            return new GenericMessage(1, " spauces updated successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+        });
 
     }
-
 }

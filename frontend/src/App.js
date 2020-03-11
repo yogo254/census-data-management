@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Showcase from "./components/Showcase";
 import Login from "./components/Login";
+import ViewPopulation from "./components/population/ViewPopulation";
 import Portal from "./components/Portal";
 import AddPopulation from "./components/population/AddPopulation";
 
@@ -43,8 +44,9 @@ function App() {
             <Switch>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={AddPopulation} />
+              <Route exact path="/population/add" component={AddPopulation} />
               <Route exact path="/portal" component={Portal} />
+              <Route exact path="/population/view" component={ViewPopulation} />
             </Switch>
           </div>
         </Fragment>

@@ -6,10 +6,10 @@ const AdminActions = () => {
     <div className="portal-component">
       <h5>Actions</h5>
       <div className="row">
-        <div className="col s12 m6 l2">
+        <div className="col s12 m6 ">
           <div class="card medium">
             <div class="card-image">
-              <img src="img/img7.jpg" />
+              <img src="img/population2.jpg" />
               <span class="card-title">Manage Users</span>
             </div>
             <div class="card-content">
@@ -28,12 +28,9 @@ const AdminActions = () => {
                 </li>
               </ul>
             </div>
-            <div class="card-action">
-              <a href="#">More Actions</a>
-            </div>
           </div>
         </div>
-        <div className="col s12 m6 l2">
+        <div className="col s12 m6 ">
           <div class="card medium">
             <div class="card-image">
               <img src="img/img7.jpg" />
@@ -49,34 +46,45 @@ const AdminActions = () => {
                 </li>
               </ul>
             </div>
-            <div class="card-action">
-              <a href="#">More Actions</a>
-            </div>
           </div>
         </div>
-        <div className="col s12 m6 l2">
+        <div className="col s12 m6 ">
           <div class="card medium">
             <div class="card-image">
-              <img src="img/img7.jpg" />
+              <img src="img/population.jpg" />
               <span class="card-title">Population Data</span>
             </div>
             <div class="card-content">
               <ul>
                 <li>
-                  <Link to="/register" className="blue-text">
+                  <Link to="/population/add" className="blue-text">
                     Add New
                   </Link>
                 </li>
                 <li>
-                  <Link className="blue-text">View Data</Link>
+                  <Link to="/population/view" className="blue-text">
+                    View Data
+                  </Link>
                 </li>
                 <li>
                   <Link className="blue-text">Update Details</Link>
                 </li>
               </ul>
             </div>
-            <div class="card-action">
-              <a href="#">More Actions</a>
+          </div>
+        </div>
+        <div className="col s12 m6 ">
+          <div class="card medium">
+            <div class="card-image">
+              <img src="img/analytics.jpg" />
+              <span class="card-title">Population Analytics</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li>
+                  <Link className="blue-text">View Current</Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

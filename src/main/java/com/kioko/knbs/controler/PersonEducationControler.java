@@ -2,6 +2,7 @@ package com.kioko.knbs.controler;
 
 import java.util.List;
 
+import com.kioko.knbs.controler.exception.InvalidRequestException;
 import com.kioko.knbs.models.Education;
 import com.kioko.knbs.repos.PersonRepo;
 import com.kioko.knbs.util.GenericMessage;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Mono;
+
 /**
  * PersonEducationControler
  */
@@ -23,38 +26,32 @@ public class PersonEducationControler {
     private PersonRepo personRepo;
 
     @PostMapping("/add/{id}")
-    public GenericMessage addEducation(@PathVariable("id") String id, @RequestBody Education education) {
+    public Mono<GenericMessage> addEducation(@PathVariable("id") String id, @RequestBody Education education) {
 
-        if (personRepo.existsById(id).block()) {
-            personRepo.findById(id)
+        return personRepo.findById(id).map(person -> {
+            if (person != null) {
+                person.getEducations().add(education);
+                personRepo.save(person).subscribe();
+                return new GenericMessage(1, "education added successfully");
 
-                    .subscribe(p -> {
-                        p.getEducations().add(education);
-                        personRepo.save(p).subscribe();
-
-                    });
-            return new GenericMessage(1, "education added successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+            } else
+                throw new InvalidRequestException("Invalid request");
+        });
 
     }
 
     @PostMapping("/update/{id}")
-    public GenericMessage updateEducation(@PathVariable("id") String id, @RequestBody List<Education> educations) {
+    public Mono<GenericMessage> updateEducation(@PathVariable("id") String id,
+            @RequestBody List<Education> educations) {
 
-        if (personRepo.existsById(id).block()) {
-            personRepo.findById(id)
-
-                    .subscribe(p -> {
-                        p.setEducations(educations);
-                        personRepo.save(p).subscribe();
-
-                    });
-            return new GenericMessage(1, "education added successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+        return personRepo.findById(id).map(person -> {
+            if (person != null) {
+                person.setEducations(educations);
+                personRepo.save(person).subscribe();
+                return new GenericMessage(1, "education added successfully");
+            } else
+                throw new InvalidRequestException("Invalid request");
+        });
 
     }
 

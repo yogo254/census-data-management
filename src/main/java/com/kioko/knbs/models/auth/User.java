@@ -17,6 +17,8 @@ public class User {
     private String email;
     private String firstname;
     private String lastname;
+    private String password;
+    private String salt;
 
     private List<Role> roles;
 
@@ -66,6 +68,22 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
 }

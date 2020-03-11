@@ -5,6 +5,7 @@ import com.kioko.knbs.repos.PersonRepo;
 import com.kioko.knbs.util.GenericMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,8 @@ import reactor.core.publisher.Mono;
  * PersonControler
  */
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person")
+@CrossOrigin
 public class PersonControler {
     @Autowired
     private PersonRepo personRepo;
@@ -35,7 +37,6 @@ public class PersonControler {
     @GetMapping("/details/{id}")
     public Mono<Person> getPersonDetails(@PathVariable("id") String id) {
         return personRepo.findById(id);
-        
 
     }
 

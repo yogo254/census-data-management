@@ -28,4 +28,12 @@ public class Permission {
         this.name = name;
     }
 
+    public Permission(String name) {
+        this.name = name;
+    }
+
+    public Permission() {
+
+    }
+
 }

@@ -11,7 +11,7 @@ const middleware = [thunk];
 const persistConfig = {
   key: "knbs",
   storage,
-  whitelist: []
+  whitelist: ["person"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -22,5 +22,4 @@ const store = createStore(
 );
 
 let persistor = persistStore(store);
-
 export default { store, persistor };

@@ -1,7 +1,6 @@
 package com.kioko.knbs.controler;
 
-import java.util.Optional;
-
+import com.kioko.knbs.controler.exception.InvalidRequestException;
 import com.kioko.knbs.models.Person;
 import com.kioko.knbs.repos.PersonRepo;
 import com.kioko.knbs.util.GenericMessage;
@@ -12,91 +11,82 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Mono;
+
 /**
  * PersonUpdateControler
  */
 @RestController
-@RequestMapping("/update")
+@RequestMapping("/api/person/update")
 public class PersonUpdateControler {
     @Autowired
     private PersonRepo personRepo;
 
     @PostMapping("/identification")
-    public GenericMessage updateIdentification(@RequestBody Person person) {
-        Optional<String> idOptional = Optional.ofNullable(person.getId());
-        if (idOptional.isPresent()) {
-            personRepo.findById(person.getId())
+    public Mono<GenericMessage> updateIdentification(@RequestBody Person person) {
 
-                    .subscribe(p -> {
-                        p.setBirthNo(person.getBirthNo());
-                        p.setNationalId(person.getNationalId());
-                        p.setNssfNo(person.getNssfNo());
-                        p.setPassportNo(person.getPassportNo());
-                        p.setVoterId(person.getVoterId());
+        return personRepo.findById(person.getId()).map(p -> {
+            if (p != null) {
+                p.setBirthNo(person.getBirthNo());
+                p.setNationalId(person.getNationalId());
+                p.setNssfNo(person.getNssfNo());
+                p.setPassportNo(person.getPassportNo());
+                p.setVoterId(person.getVoterId());
 
-                        personRepo.save(p).subscribe();
+                personRepo.save(p).subscribe();
+                return new GenericMessage(1, "identification updated successfully");
 
-                    });
-            return new GenericMessage(1, "identification updated successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+            } else
+                throw new InvalidRequestException("Invalid request");
+        });
 
     }
 
     @PostMapping("/contact")
-    public GenericMessage updateContact(@RequestBody Person person) {
-        Optional<String> idOptional = Optional.ofNullable(person.getId());
-        if (idOptional.isPresent()) {
-            personRepo.findById(person.getId())
+    public Mono<GenericMessage> updateContact(@RequestBody Person person) {
 
-                    .subscribe(p -> {
-                        p.setPhone(person.getPhone());
-                        p.setEmailAddress(person.getEmailAddress());
-                        personRepo.save(p).subscribe();
+        return personRepo.findById(person.getId()).map(p -> {
+            if (p != null) {
+                p.setPhone(person.getPhone());
+                p.setEmailAddress(person.getEmailAddress());
+                personRepo.save(p).subscribe();
+                return new GenericMessage(1, "contacts updated successfully");
 
-                    });
-            return new GenericMessage(1, "contacts updated successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+            } else
+                throw new InvalidRequestException("Invalid request");
+        });
 
     }
 
     @PostMapping("/marital")
-    public GenericMessage updateMarital(@RequestBody Person person) {
-        Optional<String> idOptional = Optional.ofNullable(person.getId());
-        if (idOptional.isPresent()) {
-            personRepo.findById(person.getId())
+    public Mono<GenericMessage> updateMarital(@RequestBody Person person) {
 
-                    .subscribe(p -> {
-                        p.setMaritalStatus(person.getMaritalStatus());
+        return personRepo.findById(person.getId()).map(p -> {
+            if (p != null) {
+                p.setMaritalStatus(person.getMaritalStatus());
 
-                        personRepo.save(p).subscribe();
+                personRepo.save(p).subscribe();
+                return new GenericMessage(1, "Marital status updated successfully");
 
-                    });
-            return new GenericMessage(1, "Marital status updated successfully");
-
-        } else
-            return new GenericMessage(0, "invalid request");
+            } else
+                throw new InvalidRequestException("Invalid request");
+        });
 
     }
 
     @PostMapping("/religion")
-    public GenericMessage updateReligion(@RequestBody Person person) {
-        Optional<String> idOptional = Optional.ofNullable(person.getId());
-        if (idOptional.isPresent()) {
-            personRepo.findById(person.getId())
+    public Mono<GenericMessage> updateReligion(@RequestBody Person person) {
 
-                    .subscribe(p -> {
-                        p.setReligion(person.getReligion());
-                        personRepo.save(p).subscribe();
+        return personRepo.findById(person.getId()).map(p -> {
+            if (p != null) {
+                p.setReligion(person.getReligion());
+                personRepo.save(p).subscribe();
+                return new GenericMessage(1, "Religion updated successfully");
 
-                    });
-            return new GenericMessage(1, "Religion updated successfully");
+            } else
+                throw new InvalidRequestException("Invalid Request");
 
-        } else
-            return new GenericMessage(0, "invalid request");
+        });
 
     }
 
