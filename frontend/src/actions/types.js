@@ -1,8 +1,10 @@
 export const ADD_EDUCATION = "ADD_EDUCATION";
 export const REMOVE_EDUCATION = "REMOVE_EDUCATION";
+export const ADD_EMPTY_EDUCATION = "ADD_EMPTY_EDUCATION";
 
 export const ADD_WORK = "ADD_WORK";
 export const REMOVE_WORK = "REMOVE_WORK";
+export const ADD_EMPTY_WORK = "ADD_EMPTY_WORK";
 
 export const PREVIOUS = "PREVIOUS";
 export const NEXT = "NEXT";

@@ -117,6 +117,8 @@ const AdminActions = ({ getAllPersons, clearPerson, setContext }) => {
   );
 };
 
-export default connect(null, { getAllPersons, clearPerson, setContext })(
-  AdminActions
-);
+export default connect(null, {
+  getAllPersons,
+  clearPerson,
+  setContext
+})(AdminActions);

@@ -4,7 +4,6 @@ import com.kioko.knbs.models.auth.Permission;
 import com.kioko.knbs.models.auth.Role;
 import com.kioko.knbs.models.auth.User;
 import com.kioko.knbs.repos.auth.UserRepo;
-import com.kioko.knbs.util.auth.JwtUtil;
 
 import java.util.ArrayList;
 import java.util.List;

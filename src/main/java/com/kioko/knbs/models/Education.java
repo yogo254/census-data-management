@@ -6,6 +6,7 @@ import java.util.Date;
  * Education
  */
 public class Education {
+    private String id;
     private String institution;
     private String certification;
     private String description;
@@ -50,6 +51,14 @@ public class Education {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

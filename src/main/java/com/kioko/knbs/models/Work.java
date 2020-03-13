@@ -6,6 +6,7 @@ import java.util.Date;
  * Work
  */
 public class Work {
+    private String id;
     private String company;
     private String position;
     private Date start;
@@ -50,6 +51,14 @@ public class Work {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

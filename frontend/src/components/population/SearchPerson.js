@@ -3,14 +3,22 @@ import { connect } from "react-redux";
 import { personUpdate, clearPerson } from "../../actions/Person";
 import { serverAddress } from "../../config/Config";
 import { setContext } from "../../actions/Context";
-import { addWork } from "../../actions/Work";
-import { addEducation } from "../../actions/Education";
+import {
+  addWork,
+  addEducation,
+  addEmptyEducation,
+  addEmptyWork
+} from "../../actions/Person";
+
 import axios from "axios";
 
 const SearchPerson = ({
   person,
   clearPerson,
   setContext,
+  personUpdate,
+  addEmptyEducation,
+  addEmptyWork,
   addWork,
   addEducation
 }) => {
@@ -35,9 +43,12 @@ const SearchPerson = ({
           })
           .then(res => {
             if (res.data !== "") {
-              res.data.works.forEach(w => addWork(w));
-              res.data.educations.forEach(e => addEducation(e));
               personUpdate(res.data);
+              res.data.works.forEach(w => addWork(w));
+
+              res.data.educations.forEach(e => addEducation(e));
+              addEmptyEducation();
+              addEmptyWork();
             }
           });
 
@@ -48,9 +59,11 @@ const SearchPerson = ({
           })
           .then(res => {
             if (res.data !== "") {
+              personUpdate(res.data);
               res.data.works.forEach(w => addWork(w));
               res.data.educations.forEach(e => addEducation(e));
-              personUpdate(res.data);
+              addEmptyEducation();
+              addEmptyWork();
             }
           });
 
@@ -61,9 +74,11 @@ const SearchPerson = ({
           })
           .then(res => {
             if (res.data !== "") {
+              personUpdate(res.data);
               res.data.works.forEach(w => addWork(w));
               res.data.educations.forEach(e => addEducation(e));
-              personUpdate(res.data);
+              addEmptyEducation();
+              addEmptyWork();
             }
           });
     }
@@ -165,5 +180,7 @@ export default connect(mapStateToProps, {
   clearPerson,
   setContext,
   addWork,
-  addEducation
+  addEducation,
+  addEmptyEducation,
+  addEmptyWork
 })(SearchPerson);

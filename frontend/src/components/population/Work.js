@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addWork, removeWork } from "../../actions/Work";
-import { previous } from "../../actions/StackPanel";
+import { addWork, removeWork } from "../../actions/Person";
+import { previous, seek } from "../../actions/StackPanel";
 import { addNewPerson } from "../../actions/Person";
+
 import uuid from "uuid/v4";
 import { useHistory } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const Work = ({
   addWork,
   removeWork,
   previous,
+  seek,
   education,
   person,
   addNewPerson
@@ -22,6 +24,7 @@ const Work = ({
     person.spauces = person.spauces.split(",");
 
     addNewPerson(person);
+    seek(0);
     history.push("/portal");
   };
   return (
@@ -152,8 +155,8 @@ const Work = ({
 };
 
 const mapStateToProps = state => ({
-  work: state.work,
-  education: state.education,
+  work: state.person.works,
+  education: state.person.educations,
   person: state.person
 });
 
@@ -161,5 +164,6 @@ export default connect(mapStateToProps, {
   addWork,
   removeWork,
   previous,
+  seek,
   addNewPerson
 })(Work);

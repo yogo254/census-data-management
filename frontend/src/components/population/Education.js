@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import uuid from "uuid/v4";
 
-import { addEducation, removeEducation } from "../../actions/Education";
+import { addEducation, removeEducation } from "../../actions/Person";
 import { next, previous } from "../../actions/StackPanel";
 
 const Education = ({
@@ -140,7 +140,7 @@ const Education = ({
   );
 };
 const mapStateToProps = state => ({
-  education: state.education
+  education: state.person.educations
 });
 
 export default connect(mapStateToProps, {
