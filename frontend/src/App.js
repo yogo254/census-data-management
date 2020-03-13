@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import ViewPopulation from "./components/population/ViewPopulation";
 import Portal from "./components/Portal";
 import AddPopulation from "./components/population/AddPopulation";
+import UpdatePerson from "./components/population/UpdatePerson";
 
 import "./App.css";
 
@@ -47,6 +48,7 @@ function App() {
               <Route exact path="/population/add" component={AddPopulation} />
               <Route exact path="/portal" component={Portal} />
               <Route exact path="/population/view" component={ViewPopulation} />
+              <Route exact path="/population/update" component={UpdatePerson} />
             </Switch>
           </div>
         </Fragment>

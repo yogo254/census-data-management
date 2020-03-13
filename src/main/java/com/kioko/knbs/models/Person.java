@@ -17,7 +17,7 @@ public class Person {
 
     private String nationalId;
     private String passportNo;
-    private String voterId;
+
     private String nssfNo;
     private String nhifNo;
     private String birthNo;
@@ -86,14 +86,6 @@ public class Person {
 
     public void setPassportNo(String passportNo) {
         this.passportNo = passportNo;
-    }
-
-    public String getVoterId() {
-        return voterId;
-    }
-
-    public void setVoterId(String voterId) {
-        this.voterId = voterId;
     }
 
     public String getNssfNo() {

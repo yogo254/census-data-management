@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { next } from "../../actions/StackPanel";
-import { personUpdate, clearPerson } from "../../actions/Person";
-import { Link } from "react-router-dom";
+import { personUpdate } from "../../actions/Person";
 
-const Identification = ({ next, personUpdate, person, clearPerson }) => {
+const Identification = ({ next, personUpdate, person, context }) => {
   const submit = e => {
     e.preventDefault();
 
@@ -24,10 +23,12 @@ const Identification = ({ next, personUpdate, person, clearPerson }) => {
   return (
     <div className="row">
       <div className="col s10 offset-s1 m8 offset-m2 card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
-        <h5 className=" blue-text">Add Identification Details</h5>
-        <Link onClick={() => clearPerson()} className="right">
-          clear
-        </Link>
+        {context === "updateperson" ? (
+          <h5 className=" blue-text">Update Identification Details</h5>
+        ) : (
+          <h5 className=" blue-text">Add Identification Details</h5>
+        )}
+
         <form className="form" onSubmit={e => submit(e)}>
           <div className="row">
             <div className="input-field">
@@ -52,17 +53,7 @@ const Identification = ({ next, personUpdate, person, clearPerson }) => {
                 defaultValue={person.passportNo}
               />
             </div>
-            <div className="input-field">
-              <p className="left blue-text">Voter ID:</p>
-              <input
-                className="black-text"
-                type="text"
-                id="votersno"
-                name="voterId"
-                placeholder="Voters ID"
-                defaultValue={person.voterId}
-              />
-            </div>
+
             <div className="input-field">
               <p className="left blue-text">NSSF NO:</p>
               <input
@@ -74,6 +65,7 @@ const Identification = ({ next, personUpdate, person, clearPerson }) => {
                 defaultValue={person.nssfNo}
               />
             </div>
+
             <div className="input-field">
               <p className="left blue-text">NHIF NO:</p>
               <input
@@ -85,6 +77,7 @@ const Identification = ({ next, personUpdate, person, clearPerson }) => {
                 placeholder="NHIF NO"
               />
             </div>
+
             <div className="input-field">
               <p className="left blue-text">Birth CERT NO:</p>
               <input
@@ -114,9 +107,8 @@ const Identification = ({ next, personUpdate, person, clearPerson }) => {
 };
 
 const mapStateToProps = state => ({
-  person: state.person
+  person: state.person,
+  context: state.context
 });
 
-export default connect(mapStateToProps, { next, personUpdate, clearPerson })(
-  Identification
-);
+export default connect(mapStateToProps, { next, personUpdate })(Identification);

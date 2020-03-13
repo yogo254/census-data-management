@@ -4,6 +4,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.kioko.knbs.repos.auth.RolesRepo;
 import com.kioko.knbs.models.auth.Permission;
 import com.kioko.knbs.models.auth.Role;
+
 import com.kioko.knbs.repos.auth.PermissionRepo;
 import com.kioko.knbs.util.UtilityFunctions;
 import java.util.Arrays;
@@ -41,6 +42,7 @@ public class KnbsApplication {
 	public ApplicationRunner runner() {
 
 		return args -> {
+
 			rolesRepo.existsByName("admin").subscribe(b -> {
 				if (!b) {
 					permissionRepo.save(new Permission("***")).subscribe();

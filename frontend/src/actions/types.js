@@ -14,3 +14,5 @@ export const PERSON_CLEAR = "PERSON_CLEAR";
 
 export const ADD_ALERT = "ADD_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
+
+export const SET_CONTEXT = "SET_CONTEXT";

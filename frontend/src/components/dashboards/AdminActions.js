@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllPersons } from "../../actions/Persons";
+import { clearPerson } from "../../actions/Person";
+import { setContext } from "../../actions/Context";
 
-const AdminActions = ({ getAllPersons }) => {
+const AdminActions = ({ getAllPersons, clearPerson, setContext }) => {
   return (
     <div className="portal-component">
       <h5>Actions</h5>
@@ -59,7 +61,14 @@ const AdminActions = ({ getAllPersons }) => {
             <div class="card-content">
               <ul>
                 <li>
-                  <Link to="/population/add" className="blue-text">
+                  <Link
+                    onClick={() => {
+                      clearPerson();
+                      setContext("addperson");
+                    }}
+                    to="/population/add"
+                    className="blue-text"
+                  >
                     Add New
                   </Link>
                 </li>
@@ -73,7 +82,16 @@ const AdminActions = ({ getAllPersons }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="blue-text">Update Details</Link>
+                  <Link
+                    onClick={() => {
+                      setContext("personsearch");
+                      clearPerson();
+                    }}
+                    to="/population/update"
+                    className="blue-text"
+                  >
+                    Update Details
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -99,4 +117,6 @@ const AdminActions = ({ getAllPersons }) => {
   );
 };
 
-export default connect(null, { getAllPersons })(AdminActions);
+export default connect(null, { getAllPersons, clearPerson, setContext })(
+  AdminActions
+);

@@ -4,7 +4,7 @@ import { previous, next } from "../../actions/StackPanel";
 import { personUpdate } from "../../actions/Person";
 import { Select } from "react-materialize";
 
-const PersonalDetails = ({ next, previous, personUpdate, person }) => {
+const PersonalDetails = ({ next, previous, personUpdate, person, context }) => {
   const submit = e => {
     e.preventDefault();
 
@@ -24,8 +24,11 @@ const PersonalDetails = ({ next, previous, personUpdate, person }) => {
   return (
     <div className="row">
       <div className="col s10 offset-s1 m8 offset-m2 card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
-        <h5 className=" blue-text">Add Personal Details</h5>
-
+        {context === "updateperson" ? (
+          <h5 className=" blue-text">Update Personal Details</h5>
+        ) : (
+          <h5 className=" blue-text">Add Personal Details</h5>
+        )}
         <form className="form" onSubmit={e => submit(e)}>
           <div className="row">
             <div className="input-field">
@@ -205,7 +208,8 @@ const PersonalDetails = ({ next, previous, personUpdate, person }) => {
   );
 };
 const mapPropsToState = state => ({
-  person: state.person
+  person: state.person,
+  context: state.context
 });
 
 export default connect(mapPropsToState, { next, previous, personUpdate })(

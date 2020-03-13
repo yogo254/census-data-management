@@ -1,6 +1,6 @@
 import { PERSON_UPDATE, ADD_ALERT, PERSON_CLEAR } from "./types";
 import { serverAddress } from "../config/Config";
-import uuid from "uuid/v4";
+
 import axios from "axios";
 
 export const personUpdate = person => dispatch => {
@@ -11,7 +11,7 @@ export const personUpdate = person => dispatch => {
 };
 
 export const addNewPerson = person => dispatch => {
-  let id = uuid();
+  console.log(person);
   axios
     .post(`${serverAddress}/api/person/register`, person)
     .then(res => dispatch({ type: ADD_ALERT, payload: res.data }));

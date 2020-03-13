@@ -31,7 +31,6 @@ public class PersonUpdateControler {
                 p.setNationalId(person.getNationalId());
                 p.setNssfNo(person.getNssfNo());
                 p.setPassportNo(person.getPassportNo());
-                p.setVoterId(person.getVoterId());
 
                 personRepo.save(p).subscribe();
                 return new GenericMessage(1, "identification updated successfully");
