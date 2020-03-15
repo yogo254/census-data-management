@@ -2,9 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { previous, next } from "../../actions/StackPanel";
 import { personUpdate } from "../../actions/Person";
+import { addAlert } from "../../actions/Alert";
+import Alert from "../Alert";
 import { Select } from "react-materialize";
+import moment from "moment";
 
-const PersonalDetails = ({ next, previous, personUpdate, person, context }) => {
+const PersonalDetails = ({
+  next,
+  previous,
+  personUpdate,
+  person,
+  context,
+  addAlert
+}) => {
   const submit = e => {
     e.preventDefault();
 
@@ -17,10 +27,21 @@ const PersonalDetails = ({ next, previous, personUpdate, person, context }) => {
       let value = d[1];
       obj[`${name}`] = value;
     });
-
-    personUpdate(obj);
-    next();
+    if (moment(obj.dob).isValid()) {
+      obj.dob = moment(obj.dob).format("YYYY-MM-DD");
+      personUpdate(obj);
+      next();
+    } else if (moment(obj.dob, "DD-MM-YYYY").isValid()) {
+      obj.dob = moment(obj.dob, "DD-MM-YYYY").format("YYYY-MM-DD");
+      personUpdate(obj);
+      next();
+    } else
+      addAlert({
+        message: `invalid date of birth: ${obj.dob}`,
+        type: "danger"
+      });
   };
+
   return (
     <div className="row">
       <div className="col s10 offset-s1 m8 offset-m2 card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
@@ -96,13 +117,11 @@ const PersonalDetails = ({ next, previous, personUpdate, person, context }) => {
             <div className="input-field">
               <p className="left blue-text">Date of Birth:</p>
               <input
-                className="black-text datepicker"
-                type="date"
+                className="black-text"
+                type="text"
                 id="dob"
-                format="dd-mm-yyyy"
                 name="dob"
-                defaultValue={person.dob}
-                placeholder="dd-mm-yyyy"
+                defaultValue={new Date(person.dob).toLocaleDateString()}
                 required
               />
             </div>
@@ -201,6 +220,7 @@ const PersonalDetails = ({ next, previous, personUpdate, person, context }) => {
                 Previous
               </button>
             </div>
+            <Alert />
           </div>
         </form>
       </div>
@@ -212,6 +232,9 @@ const mapPropsToState = state => ({
   context: state.context
 });
 
-export default connect(mapPropsToState, { next, previous, personUpdate })(
-  PersonalDetails
-);
+export default connect(mapPropsToState, {
+  next,
+  previous,
+  personUpdate,
+  addAlert
+})(PersonalDetails);

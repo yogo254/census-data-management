@@ -3,6 +3,7 @@ import {
   REMOVE_WORK,
   PERSON_UPDATE,
   ADD_ALERT,
+  REMOVE_ALERT,
   PERSON_CLEAR,
   ADD_EMPTY_EDUCATION,
   ADD_EMPTY_WORK,
@@ -10,6 +11,7 @@ import {
   REMOVE_EDUCATION
 } from "./types";
 import { serverAddress } from "../config/Config";
+import uuid from "uuid/v4";
 
 import axios from "axios";
 
@@ -57,10 +59,11 @@ export const personUpdate = person => dispatch => {
 };
 
 export const addNewPerson = person => dispatch => {
-  console.log(person);
-  axios
-    .post(`${serverAddress}/api/person/register`, person)
-    .then(res => dispatch({ type: ADD_ALERT, payload: res.data }));
+  axios.post(`${serverAddress}/api/person/register`, person).then(res => {
+    let id = uuid();
+    dispatch({ type: ADD_ALERT, payload: { id, ...res.data } });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 10000);
+  });
 };
 
 export const clearPerson = () => dispatch => {

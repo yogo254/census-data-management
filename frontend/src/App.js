@@ -12,23 +12,19 @@ import Login from "./components/Login";
 import ViewPopulation from "./components/population/ViewPopulation";
 import Portal from "./components/Portal";
 import AddPopulation from "./components/population/AddPopulation";
+
 import UpdatePerson from "./components/population/UpdatePerson";
+import "moment-timezone";
 
 import "./App.css";
 
 function App() {
-  let options = {
-    format: "dd-mm-yyyy"
-  };
+  let options = {};
   document.addEventListener("DOMContentLoaded", function() {
     let elems = document.querySelectorAll(".sidenav");
     M.Sidenav.init(elems, options);
   });
 
-  document.addEventListener("DOMContentLoaded", function() {
-    let elems = document.querySelectorAll(".modal");
-    M.Modal.init(elems, options);
-  });
   document.addEventListener("DOMContentLoaded", function() {
     let elems = document.querySelectorAll(".datepicker");
     M.Datepicker.init(elems, options);
@@ -41,7 +37,6 @@ function App() {
           <div className="App">
             <NavBar />
             <Route exact path="/" component={Showcase} />
-
             <Switch>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
